@@ -3,7 +3,8 @@ package structs
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	actual := Perimeter(10.0, 10.0)
+	rectangle := Rectangle{10.0, 10.0}
+	actual := Perimeter(rectangle)
 	expected := 40.0
 
 	if actual != expected {
@@ -12,7 +13,8 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	actual := Area(5.0, 10.0)
+	rectangle := Rectangle{5.0, 10.0}
+	actual := Area(rectangle)
 	expected := 50.0
 
 	if actual != expected {
