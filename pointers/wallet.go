@@ -1,6 +1,9 @@
 package pointers
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Bitcoin is currency in wallet
 type Bitcoin int
@@ -26,8 +29,13 @@ func (w *Wallet) Balance() Bitcoin {
 }
 
 // Withdraw will take money from the wallet
-func (w *Wallet) Withdraw(amount Bitcoin) {
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if amount > w.balance {
+		return errors.New("cannot withdraw, insufficient funds")
+	}
+
 	w.balance -= amount
+	return nil
 }
 
 func (b Bitcoin) String() string {
