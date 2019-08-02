@@ -15,12 +15,13 @@ func TestPerimeter(t *testing.T) {
 func TestArea(t *testing.T) {
 
 	areaTests := []struct {
+		name     string
 		shape    Shape
 		expected float64
 	}{
-		{Rectangle{5.0, 10.0}, 50.0},
-		{Circle{10.0}, 314.1592653589793},
-		{Triangle{12.0, 6.0}, 36.0},
+		{name: "Rectangle", shape: Rectangle{5.0, 10.0}, expected: 50.0},
+		{name: "Circle", shape: Circle{10.0}, expected: 314.1592653589793},
+		{name: "Triangle", shape: Triangle{12.0, 6.0}, expected: 36.0},
 	}
 
 	for _, tt := range areaTests {
