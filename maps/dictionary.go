@@ -3,8 +3,10 @@ package maps
 // Dictionary is custom type declaration
 type Dictionary map[string]string
 
+// DictionaryErr establishes type that accesses the error interface
 type DictionaryErr string
 
+// ErrNotFound defines error message for Search
 const (
 	ErrNotFound         = DictionaryErr("cannot find the word you're looking for")
 	ErrWordExists       = DictionaryErr("cannot add word because it already exists")
@@ -41,6 +43,8 @@ func (d Dictionary) Add(word, definition string) error {
 	return nil
 }
 
+// Update takes word and definition and will update the definition of any
+// existing word
 func (d Dictionary) Update(word, definition string) error {
 	_, err := d.Search(word)
 
@@ -54,4 +58,9 @@ func (d Dictionary) Update(word, definition string) error {
 	}
 
 	return nil
+}
+
+// Delete takes a word and removes it from the dictionary
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
 }
