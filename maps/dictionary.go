@@ -1,15 +1,18 @@
 package maps
 
-import "errors"
-
 // Dictionary is custom type declaration
 type Dictionary map[string]string
 
-// ErrNotFound removes potential for clashing changes between code and tests
-var (
-	ErrNotFound   = errors.New("cannot find the word you're looking for")
-	ErrWordExists = errors.New("cannot add word because it already exists")
+type DictionaryErr string
+
+const (
+	ErrNotFound   = DictionaryErr("cannot find the word you're looking for")
+	ErrWordExists = DictionaryErr("cannot add word because it already exists")
 )
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 // Search will comb through a map called dictionary for a word and
 // return a definition.
