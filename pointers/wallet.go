@@ -18,6 +18,7 @@ type Stringer interface {
 	String() string
 }
 
+// ErrInsufficientFunds used to ensure error text will not break program/tests if changed
 var ErrInsufficientFunds = errors.New("cannot withdraw, insufficient funds")
 
 // Deposit will add money to the wallet
