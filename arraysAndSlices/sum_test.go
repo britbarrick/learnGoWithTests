@@ -17,11 +17,23 @@ func TestSum(t *testing.T) {
 
 }
 
-func TestSumAll(t *testing.T) {
-	actual := SumAll([]int{1, 2}, []int{0, 9})
-	expected := []int{3, 9}
+func TestSumAllTails(t *testing.T) {
 
-	if !reflect.DeepEqual(expected, actual) {
-		t.Errorf("Expected %v but got %v.", expected, actual)
-	}
+	t.Run("make sum of some slices", func(t *testing.T) {
+		actual := SumAllTails([]int{1, 2}, []int{0, 9})
+		expected := []int{2, 9}
+
+		if !reflect.DeepEqual(expected, actual) {
+			t.Errorf("Expected %v but got %v.", expected, actual)
+		}
+	})
+
+	t.Run("safely sum empty slices", func(t *testing.T) {
+		actual := SumAllTails([]int{}, []int{3, 4, 5})
+		expected := []int{0, 9}
+
+		if !reflect.DeepEqual(actual, expected) {
+			t.Errorf("Expected %v, but got %v.", expected, actual)
+		}
+	})
 }
