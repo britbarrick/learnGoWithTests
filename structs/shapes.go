@@ -2,6 +2,11 @@ package structs
 
 import "math"
 
+// Shape groups functionality based upon Area()
+type Shape interface {
+	Area() float64
+}
+
 // Rectangle gives the dimensions of the shape
 type Rectangle struct {
 	Width  float64
