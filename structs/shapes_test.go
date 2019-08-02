@@ -19,7 +19,8 @@ func TestArea(t *testing.T) {
 		expected float64
 	}{
 		{Rectangle{5.0, 10.0}, 50.0},
-		{Circle{10}, 314.1592653589793},
+		{Circle{10.0}, 314.1592653589793},
+		{Triangle{12.0, 6.0}, 36.0},
 	}
 
 	for _, tt := range areaTests {

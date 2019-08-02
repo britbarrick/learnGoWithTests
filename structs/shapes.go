@@ -18,6 +18,12 @@ type Circle struct {
 	Radius float64
 }
 
+// Triangle gives dimentsions of the shape
+type Triangle struct {
+	Height float64
+	Base   float64
+}
+
 // Perimeter takes width and height of a rectangle as float64 and
 // returns the perimeter.
 func Perimeter(rectangle Rectangle) float64 {
@@ -30,8 +36,14 @@ func (r Rectangle) Area() float64 {
 	return r.Width * r.Height
 }
 
-// Area takes the width and height of a circle as float64 and
+// Area takes the radius of a circle as float64 and
 // returns the area.
 func (c Circle) Area() float64 {
 	return math.Pi * c.Radius * c.Radius
+}
+
+// Area takes the base and height of a triangle as a float 64
+// and returns the area
+func (t Triangle) Area() float64 {
+	return .5 * t.Base * t.Height
 }
