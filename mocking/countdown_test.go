@@ -11,7 +11,10 @@ func TestCountdown(t *testing.T) {
 	Countdown(buffer)
 
 	actual := buffer.String()
-	expected := "3"
+	expected := `3
+2
+1
+Go!`
 
 	if actual != expected {
 		t.Errorf("Expected %q but got %q", expected, actual)
