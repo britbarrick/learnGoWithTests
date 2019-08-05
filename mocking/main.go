@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+type Sleeper interface {
+	Sleep()
+}
+
+type DefaultSleeper struct{}
+
 const (
 	finalWord      = "Go!"
 	countdownStart = 3
@@ -14,16 +20,21 @@ const (
 
 // Countdown begins at 3, waits one second between printing next
 // decrement and exiting upon hitting 0 and printing 'GO!'
-func Countdown(out io.Writer) {
+func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
-		time.Sleep(1 * time.Second)
+		sleeper.Sleep()
 		fmt.Fprintf(out, "%v\n", i)
 	}
-	time.Sleep(1 * time.Second)
+	sleeper.Sleep()
 	fmt.Fprint(out, finalWord)
 
 }
 
+func (d *DefaultSleeper) Sleep() {
+	time.Sleep(1 * time.Second)
+}
+
 func main() {
-	Countdown(os.Stdout)
+	sleeper := &DefaultSleeper{}
+	Countdown(os.Stdout, sleeper)
 }
