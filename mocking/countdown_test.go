@@ -2,33 +2,61 @@ package main
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 )
 
 func TestCountdown(t *testing.T) {
-	buffer := &bytes.Buffer{}
-	spySleeper := &SpySleeper{}
+	t.Run("prints 3 to Go!", func(t *testing.T) {
+		buffer := &bytes.Buffer{}
+		Countdown(buffer, &CountdownOperationsSpy{})
 
-	Countdown(buffer, spySleeper)
-
-	actual := buffer.String()
-	expected := `3
+		actual := buffer.String()
+		expected := `3
 2
 1
 Go!`
 
-	if actual != expected {
-		t.Errorf("Expected %q but got %q", expected, actual)
-	}
-	if spySleeper.Calls != 4 {
-		t.Errorf("not enough calls to sleeper, expected 4 but got %d", spySleeper.Calls)
-	}
+		if actual != expected {
+			t.Errorf("Expected %q but got %q", expected, actual)
+		}
+	})
+
+	t.Run("sleep before every print", func(t *testing.T) {
+		spySleepPrinter := &CountdownOperationsSpy{}
+		Countdown(spySleepPrinter, spySleepPrinter)
+
+		expected := []string{
+			sleep,
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+		}
+
+		if !reflect.DeepEqual(expected, spySleepPrinter.Calls) {
+			t.Errorf("expected calls %v but got %v", expected, spySleepPrinter.Calls)
+		}
+	})
 }
 
-type SpySleeper struct {
-	Calls int
+type CountdownOperationsSpy struct {
+	Calls []string
 }
 
-func (s *SpySleeper) Sleep() {
-	s.Calls++
+func (s *CountdownOperationsSpy) Sleep() {
+	s.Calls = append(s.Calls, sleep)
 }
+
+func (s *CountdownOperationsSpy) Write(p []byte) (n int, err error) {
+	s.Calls = append(s.Calls, write)
+	return
+}
+
+const (
+	write = "write"
+	sleep = "sleep"
+)
