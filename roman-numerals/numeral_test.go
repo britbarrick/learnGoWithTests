@@ -10,6 +10,7 @@ func TestRomanNumerals(t *testing.T) {
 	}{
 		{"1 gets converted to I", 1, "I"},
 		{"2 gets converted to II", 2, "II"},
+		{"3 gets converted to III", 3, "III"},
 	}
 
 	for _, test := range cases {
@@ -20,22 +21,4 @@ func TestRomanNumerals(t *testing.T) {
 			}
 		})
 	}
-
-	t.Run("1 gets converted to I", func(t *testing.T) {
-		actual := ConvertToRoman(1)
-		expected := "I"
-
-		if actual != expected {
-			t.Errorf("Expected %q but got %q", expected, actual)
-		}
-	})
-
-	t.Run("2 gets converted to II", func(t *testing.T) {
-		actual := ConvertToRoman(2)
-		expected := "II"
-
-		if actual != expected {
-			t.Errorf("Expected %q but got %q", expected, actual)
-		}
-	})
 }
